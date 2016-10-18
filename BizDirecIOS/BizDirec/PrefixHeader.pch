@@ -1,0 +1,14 @@
+//
+//  PrefixHeader.h
+//  BizDirec
+//
+//  This App has been generated using IBM Mobile App Builder
+//
+
+#ifndef BizDirec_PrefixHeader_pch
+#define BizDirec_PrefixHeader_pch
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#endif

@@ -1,0 +1,1 @@
+This folder will contain your app's images

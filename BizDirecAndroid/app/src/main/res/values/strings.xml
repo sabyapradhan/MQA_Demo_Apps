@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+
+    <string name="app_name">BizDirec</string>
+
+    <!-- Activity Titles -->
+    <string formatted="false" name="bizDirecMain">BizDirec</string>
+    <string formatted="false" name="categoriesActivity">Categories</string>
+    <string formatted="false" name="carDealersActivity">Car Dealers</string>
+    <string formatted="false" name="healthClubsActivity">Health Clubs</string>
+    <string formatted="false" name="legalServicesActivity">Legal Services</string>
+    <string formatted="false" name="restaurantsActivity">Restaurants</string>
+</resources>
+
+

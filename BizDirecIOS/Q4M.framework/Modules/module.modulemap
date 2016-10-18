@@ -1,0 +1,10 @@
+framework module Q4M {
+  umbrella header "Q4M.h"
+
+  export *
+  module * { export * }
+}
+
+module Q4M.Swift {
+    header "Q4M-Swift.h"
+}

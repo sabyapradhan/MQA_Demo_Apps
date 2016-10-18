@@ -1,0 +1,48 @@
+platform :ios, '8.0'
+
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
+target 'IBMMobileAppBuilder' do
+  pod 'AFNetworking', '2.5.3'
+  pod 'SVProgressHUD', '1.1.3'
+  pod 'ECSlidingViewController', '2.0.3'
+  pod 'XMLDictionary', '1.4'
+  pod 'SVPullToRefresh', '0.4.1'
+  pod 'Colours', '5.6.2'
+  pod 'NSUserDefaults-AESEncryptor', '0.0.4'
+  pod 'CorePlot', '2.0'
+  pod 'DCKeyValueObjectMapping', '1.4'
+  pod 'SDWebImage', '3.7.6'
+  pod 'UIActivityIndicator-for-SDWebImage', '1.2'
+  pod 'ActionSheetPicker-3.0', '1.6.2'
+  pod 'CDTDatastore', '1.0.0'
+end
+
+post_install do |installer_representation|
+ 
+  # Overrride OTHER_LDFLAGS to fix any problems with the CocoaPods installation 
+  workDir = Dir.pwd
+
+  xcconfigDebug = "#{workDir}/Pods/Target Support Files/Pods-IBMMobileAppBuilder/Pods-IBMMobileAppBuilder.debug.xcconfig"
+  xcconfig = File.read(xcconfigDebug)
+  newXcconfig = xcconfig.gsub(/OTHER_LDFLAGS = [A-Z_ =\-a-z\"0-9]*/, "OTHER_LDFLAGS = $(inherited) ")
+  File.open(xcconfigDebug, "w") { |file| file << newXcconfig }
+
+  xcconfigRelease = "#{workDir}/Pods/Target Support Files/Pods-IBMMobileAppBuilder/Pods-IBMMobileAppBuilder.release.xcconfig"
+  xcconfig = File.read(xcconfigRelease)
+  newXcconfig = xcconfig.gsub(/OTHER_LDFLAGS = [A-Z_ =\-a-z\"0-9]*/, "OTHER_LDFLAGS = $(inherited) ")
+  File.open(xcconfigRelease, "w") { |file| file << newXcconfig }
+  
+  # Build all archs for debug config
+  installer_representation.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ARCHS'] = "$(ARCHS_STANDARD_INCLUDING_64_BIT)"
+      config.build_settings['VALID_ARCHS'] = "$(ARCHS_STANDARD_INCLUDING_64_BIT)"
+      config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+      config.build_settings['ENABLE_STRICT_OBJC_MSGSEND'] = 'NO'
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+    end
+  end
+
+end
